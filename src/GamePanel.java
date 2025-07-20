@@ -281,25 +281,25 @@ public class GamePanel extends JPanel implements Runnable{
         double placeChance2 = Math.random();
 
         if(placeChance1 > 0.90){
-                Obstacles skele_obj1 = new Obstacles(Constant.SCREEN_WIDTH, groundY, skele.getWidth(), skele.getHeight(),skele);
+                Obstacles skele_obj1 = new Obstacles(Constant.SCREEN_WIDTH, Constant.SCREEN_HEIGHT-skele.getHeight()*5, skele.getWidth(), skele.getHeight(),skele);
                 obstaclesArray.add(skele_obj1);
         }
         else if(placeChance1 > 0.70){
             if(placeChance2 > 0.50){
-                Obstacles tree_obj1 = new Obstacles(Constant.SCREEN_WIDTH, groundY, log.getWidth(), log.getHeight(),log);
+                Obstacles tree_obj1 = new Obstacles(Constant.SCREEN_WIDTH, (Constant.SCREEN_HEIGHT-log.getHeight()*4)-5, log.getWidth(), log.getHeight(),log);
                 obstaclesArray.add(tree_obj1);
             }
             else{
-                Obstacles tree_obj2 = new Obstacles(Constant.SCREEN_WIDTH, groundY, trunk.getWidth(), trunk.getHeight(),trunk);
+                Obstacles tree_obj2 = new Obstacles(Constant.SCREEN_WIDTH, (Constant.SCREEN_HEIGHT-trunk.getHeight()*4)-5, trunk.getWidth(), trunk.getHeight(),trunk);
                 obstaclesArray.add(tree_obj2);
             }
         } else if (placeChance1 > 0.50) {
             if(placeChance2 > 0.50){
-                Obstacles stone_obj1 = new Obstacles(Constant.SCREEN_WIDTH, groundY, stone1.getWidth(), stone1.getHeight(),stone1);
+                Obstacles stone_obj1 = new Obstacles(Constant.SCREEN_WIDTH, (Constant.SCREEN_HEIGHT-stone1.getHeight()*4)-5, stone1.getWidth(), stone1.getHeight(),stone1);
                 obstaclesArray.add(stone_obj1);
             }
             else{
-                Obstacles stone_obj2 = new Obstacles(Constant.SCREEN_WIDTH, groundY, stone2.getWidth(), stone2.getHeight(),stone2);
+                Obstacles stone_obj2 = new Obstacles(Constant.SCREEN_WIDTH, (Constant.SCREEN_HEIGHT-stone2.getHeight()*4)-5, stone2.getWidth(), stone2.getHeight(),stone2);
                 obstaclesArray.add(stone_obj2);
             }
 
@@ -406,10 +406,10 @@ public class GamePanel extends JPanel implements Runnable{
 
             case GAME_OVER:
                 g2.setFont(pixelFont.deriveFont( 70f));
-                g2.drawString("GAME OVER", (Constant.SCREEN_WIDTH/2)-150, (Constant.SCREEN_HEIGHT/2)-50);
+                g2.drawString("GAME OVER", (Constant.SCREEN_WIDTH/2)-165, (Constant.SCREEN_HEIGHT/2)-50);
                 g2.setFont(pixelFont.deriveFont( 45f));
-                g2.drawString("Score: "+String.valueOf(score), (Constant.SCREEN_WIDTH/2)-150, (Constant.SCREEN_HEIGHT/2)+10);
-                g2.drawString("High Score: "+String.valueOf(highScore), (Constant.SCREEN_WIDTH/2)-150, (Constant.SCREEN_HEIGHT/2)+75);
+                g2.drawString("Score: "+String.valueOf(score), (Constant.SCREEN_WIDTH/2)-165, (Constant.SCREEN_HEIGHT/2)+10);
+                g2.drawString("High Score: "+String.valueOf(highScore), (Constant.SCREEN_WIDTH/2)-165, (Constant.SCREEN_HEIGHT/2)+75);
 
         }
 

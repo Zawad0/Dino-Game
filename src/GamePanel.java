@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static java.lang.Double.max;
+
 public class GamePanel extends JPanel implements Runnable{
     Thread gameThread;
     BufferedImage background, base, shadow, trees, moonStars, clouds,
@@ -22,6 +24,7 @@ public class GamePanel extends JPanel implements Runnable{
     boolean jumped = false;
     private int score = 0;
     private int highScore = 0;
+    private double diffModif = 1;
 
 
     GameStates gameStates = GameStates.IDLE;
@@ -103,7 +106,7 @@ public class GamePanel extends JPanel implements Runnable{
         dino.y = Constant.dinoIdleY;
         velocityY = 0;
         score = 0;
-
+        diffModif = 0;
         backgroundX = Constant.backgroundX;
         shadowX = Constant.shadowX;
         treesX = Constant.treesX;
@@ -125,13 +128,11 @@ public class GamePanel extends JPanel implements Runnable{
         gameThread.start();
     }
 
-
     class Time{
         static double timeStarted = System.nanoTime();
         static double getTime(){ return (System.nanoTime() - timeStarted) * 1E-9;}
 
     }
-
     @Override
     public void run() {
         double lastFrameTime = Time.getTime();
@@ -152,7 +153,6 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     private void update(double dt){
-
         switch (gameStates){
             case IDLE:
                 animationTimer+=dt;
@@ -162,7 +162,7 @@ public class GamePanel extends JPanel implements Runnable{
             case RUNNING:
                 animationTimer+=dt;
                 move();
-
+                difficulty();
                 spawnTimer += dt;
                 if(spawnTimer >= 1){
                     createObstacles();
@@ -184,10 +184,10 @@ public class GamePanel extends JPanel implements Runnable{
                 }
                 else
                     runningAnimationHandler();
-                backgroundX -= 0.4;
-                shadowX -= 0.9;
-                treesX -= 1.5;
-                cloudsX -= 0.7;
+                backgroundX -= (1 * (1+diffModif));
+                shadowX -= (1.8 * (1+diffModif));
+                treesX -= (2.1 * (1+diffModif));
+                cloudsX -= (0.9 * (1+diffModif));
 
 
                 if (backgroundX <= -background.getWidth()*2) {
@@ -247,7 +247,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     private void move(){
-        System.out.println("Before move - Y: " + dino.y + ", velocityY: " + velocityY);
+        //System.out.println("Before move - Y: " + dino.y + ", velocityY: " + velocityY); //debug
 
         dino.y += velocityY;
 
@@ -259,18 +259,18 @@ public class GamePanel extends JPanel implements Runnable{
             jumped = false;
         }
         if (dino.y >= groundY) {
-            System.out.println("Hit ground!");
+            //System.out.println("Hit ground!");
             dino.y = groundY;
             velocityY = 0;
         }
 
         score++;
 
-        System.out.println("After move - Y: " + dino.y + ", velocityY: " + velocityY);
+        //System.out.println("After move - Y: " + dino.y + ", velocityY: " + velocityY);
 
         for(int i=0;i<obstaclesArray.size();i++){
             Obstacles obstacles = obstaclesArray.get(i);
-            obstacles.x+=velocityX;
+            obstacles.x+= (int) (velocityX * (1+diffModif));
 
 
         }
@@ -316,6 +316,11 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
 
+    private void difficulty(){
+        diffModif = (double)score/4500;
+        if(diffModif >= Constant.terminalVelo) diffModif = Constant.terminalVelo;
+
+    }
 
     private void idleAnimationHandler(){
         dino.dinoIdle.frameX = Constant.dinoIdleX;

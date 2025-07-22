@@ -9,7 +9,7 @@ public class Constant {
     public static final double FRAME_DURATION_IDLE = 0.15;
     public static final double FRAME_DURATION_RUN = 0.18;
     public static final double FRAME_DURATION_JUMP = 0.15;
-    public static final int SCALE = 2;
+    //public static final int SCALE = 2;
     public static int dinoIdleX = 150, dinoIdleY = 400;
-    public static final int terminalVelo = 10;
+    public static final int terminalVelo = 3;
 }

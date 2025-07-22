@@ -184,10 +184,10 @@ public class GamePanel extends JPanel implements Runnable{
                 }
                 else
                     runningAnimationHandler();
-                backgroundX -= (1 * (1+diffModif));
-                shadowX -= (1.8 * (1+diffModif));
-                treesX -= (2.1 * (1+diffModif));
-                cloudsX -= (0.9 * (1+diffModif));
+                backgroundX -= (0.7 * (1+diffModif));
+                shadowX -= (1.7 * (1+diffModif));
+                treesX -= (2.8 * (1+diffModif));
+                cloudsX -= (0.4 * (1+diffModif));
 
 
                 if (backgroundX <= -background.getWidth()*2) {
